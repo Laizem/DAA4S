@@ -1,16 +1,32 @@
 #include<stdio.h>
 
-int a[10][10],visit[10],con[20],j=0,acy=1,n,c=0;
+int a[10][10],visit[10],con[20],j=0,acy=1,n,c=0,stk[10],top=-1;
 
-void dfs(int s)
+void dfs(int st)
 {
-	visit[s]=1;con[j++]=s;
-	for(int i=s;i<=n;i++,c++)
-	{	
-		if(a[s][i]&&visit[i])
-			acy=0;
-		if(a[s][i]&&!visit[i])
-			dfs(i);
+	visit[st]=0;
+	stk[++top]=st;
+	int s;
+	while(top!= -1)
+	{
+	    s= stk[top];
+	    visit[s]=1;
+	    for(int i=1;i<=n;i++)
+	    {	
+	    	if(a[s][i]&&visit[i]==1)
+	    		acy=0;
+		    if(a[s][i]&&visit[i]==-1)
+			{
+			    stk[++top]=i;
+			    visit[i]=0;
+			}
+	    }
+	    if(stk[top]==s)
+	    {
+	        visit[stk[top]]=2;
+	        con[j++]=s;
+	        top--;
+	    }
 	}
 }
 
@@ -18,9 +34,10 @@ void concyc()
 {
 	int i,f=1;
 	for(i=1;i<=n;i++)
-		if(!visit[i])
+		if(visit[i]==-1)
 		{
-			f=0;con[j++]=0;
+			f=0;
+			con[j++]=0;
 			dfs(i);
 		}
 	if(f)
@@ -50,7 +67,7 @@ void main()
 	printf("Enter the number of vertices : ");
 	scanf("%d",&n);
 	for(i=1;i<=n;i++)
-		visit[i]=0;
+		visit[i]=-1;
 	printf("Enter the adjacency matrix : \n");
 	for(i=1;i<=n;i++)
 		for(j=1;j<=n;j++)
@@ -59,4 +76,3 @@ void main()
 	concyc();
 	printf("The operation count is : %d\n",c);
 }
-
