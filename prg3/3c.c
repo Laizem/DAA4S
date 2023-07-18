@@ -7,9 +7,10 @@ void ISort(int *a,int n)
 	for(int i=1;i<n;i++)
 	{
 		int j,t=a[i];
-		for(j=i-1;j>=0 && a[j]>t;j--)
+		for(j=i-1;j>=0;j--)
 		{
 			c++;
+			if(a[j]>t)
 			a[j+1]=a[j];
 		}
 		a[j+1]=t;
