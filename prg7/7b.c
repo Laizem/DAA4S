@@ -1,17 +1,20 @@
 #include<stdio.h>
 
-int a[10][10],visit[10],con[20],j=0,q[10],r=-1,f=0,acy=1,n,c=0;
+int a[10][10],visit[10],con[20],j=0,q[10],r=-1,f=0,acy=1,n,c=0,p[10];
 
 void bfs(int s)
 {
     con[j++]=s;
-	for(int i=s;i<=n;i++)
+	for(int i=1;i<=n;i++)
 	{	
 		c++;
-		if(a[s][i]&&visit[i])
+		if(a[s][i]&&p[s]!=i&&visit[i])
 			acy=0;
 		if(a[s][i]&&!visit[i])
+		{
 			q[++r]=i;
+			p[i]=s;
+		}
 		if(r>=f)
 		{
 			visit[q[r]]=1;
@@ -62,8 +65,8 @@ void main()
 		for(j=1;j<=n;j++)
 			scanf("%d",&a[i][j]);
 	visit[1]=1;
+	p[1]=0;
 	bfs(1);
 	concyc();
 	printf("The operation count is : %d\n",c);
 }
-
