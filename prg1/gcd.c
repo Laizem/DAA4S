@@ -61,9 +61,9 @@ void main(){
     }
     fclose(fp);
     fclose(fpc);
-//FILE *fg = fopen("GCDplot.gnu","w");
-//fprintf(fg,"set xlabel \"min{m,n}\"\nset ylabel \"t\"\nplot 'GCDC.txt' u 3 : 4 w l ti\"Ecuclid's\",'GCDC.txt' u 3 : 5 w l ti\"Subtraction\",'GCDC.txt' u 3 : 6 w l ti\"Consecutive Interger\" \nset term png\nset output \"GCD.png\"\nreplot\nset term x11");
-//fclose(fg);
-//system("gnuplot \"GCDplot.gnu\"");
-//system("eog GCD.png");
+FILE *fg = fopen("GCDplot.gnu","w");
+fprintf(fg,"set xlabel \"min{m,n}\"\nset ylabel \"t\"\nplot 'GCDC.txt' u 3 : 4 w l ti\"Ecuclid's\",'GCDC.txt' u 3 : 5 w l ti\"Subtraction\",'GCDC.txt' u 3 : 6 w l ti\"Consecutive Interger\" \nset term png\nset output \"GCD.png\"\nreplot\nset term x11");
+fclose(fg);
+system("gnuplot \"GCDplot.gnu\"");
+system("eog GCD.png");
 }
